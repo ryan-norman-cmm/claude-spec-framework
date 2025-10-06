@@ -39,20 +39,42 @@ check_dependencies() {
   success "Dependencies OK"
 }
 
-# Backup existing files
+# Backup existing files (only for --force mode)
 backup_existing() {
-  if [ -d "$CLAUDE_DIR/agents" ] || [ -d "$CLAUDE_DIR/commands/spec" ]; then
-    local timestamp=$(date +%Y%m%d_%H%M%S)
-    local backup_dir="$CLAUDE_DIR/.backups/spec-framework-$timestamp"
+  if [ "$FORCE_OVERWRITE" = "true" ]; then
+    if [ -d "$CLAUDE_DIR/agents" ] || [ -d "$CLAUDE_DIR/commands/spec" ]; then
+      local timestamp=$(date +%Y%m%d_%H%M%S)
+      local backup_dir="$CLAUDE_DIR/.backups/spec-framework-$timestamp"
 
-    info "Creating backup at $backup_dir..."
-    mkdir -p "$backup_dir"
+      info "Creating backup at $backup_dir..."
+      mkdir -p "$backup_dir"
 
-    [ -d "$CLAUDE_DIR/agents" ] && cp -r "$CLAUDE_DIR/agents" "$backup_dir/" 2>/dev/null || true
-    [ -d "$CLAUDE_DIR/commands/spec" ] && cp -r "$CLAUDE_DIR/commands/spec" "$backup_dir/" 2>/dev/null || true
-    [ -d "$CLAUDE_DIR/hooks" ] && cp -r "$CLAUDE_DIR/hooks" "$backup_dir/" 2>/dev/null || true
+      [ -d "$CLAUDE_DIR/agents" ] && cp -r "$CLAUDE_DIR/agents" "$backup_dir/" 2>/dev/null || true
+      [ -d "$CLAUDE_DIR/commands/spec" ] && cp -r "$CLAUDE_DIR/commands/spec" "$backup_dir/" 2>/dev/null || true
+      [ -d "$CLAUDE_DIR/hooks" ] && cp -r "$CLAUDE_DIR/hooks" "$backup_dir/" 2>/dev/null || true
 
-    success "Backup created"
+      success "Backup created"
+    fi
+  fi
+}
+
+# Copy file only if it doesn't exist (or if force mode)
+copy_if_new() {
+  local src="$1"
+  local dest="$2"
+  local existed=false
+
+  [ -f "$dest" ] && existed=true
+
+  if [ ! -f "$dest" ] || [ "$FORCE_OVERWRITE" = "true" ]; then
+    cp "$src" "$dest"
+    if [ "$existed" = "true" ]; then
+      echo "  ↻ $(basename "$dest") (updated)"
+    else
+      echo "  + $(basename "$dest") (new)"
+    fi
+  else
+    echo "  - $(basename "$dest") (exists, skipped)"
   fi
 }
 
@@ -68,30 +90,77 @@ install_files() {
   mkdir -p "$CLAUDE_DIR/docs"
 
   # Copy agents
-  cp -r "$SCRIPT_DIR/agents/"* "$CLAUDE_DIR/agents/" 2>/dev/null || true
-  success "Installed agents (8 files)"
+  echo "Installing agents:"
+  for agent in "$SCRIPT_DIR/agents/"*.md; do
+    copy_if_new "$agent" "$CLAUDE_DIR/agents/$(basename "$agent")"
+  done
 
   # Copy commands
-  cp -r "$SCRIPT_DIR/commands/spec/"* "$CLAUDE_DIR/commands/spec/" 2>/dev/null || true
-  success "Installed slash commands (11 files)"
+  echo ""
+  echo "Installing commands:"
+  for cmd in "$SCRIPT_DIR/commands/spec/"*.md; do
+    copy_if_new "$cmd" "$CLAUDE_DIR/commands/spec/$(basename "$cmd")"
+  done
 
   # Copy hooks (with user confirmation)
   if [ "$SKIP_HOOKS" != "true" ]; then
-    cp -r "$SCRIPT_DIR/hooks/"*.sh "$CLAUDE_DIR/hooks/" 2>/dev/null || true
-    chmod +x "$CLAUDE_DIR/hooks/"*.sh
-    success "Installed hooks (6 files)"
+    echo ""
+    echo "Installing hooks:"
+    for hook in "$SCRIPT_DIR/hooks/"*.sh; do
+      dest="$CLAUDE_DIR/hooks/$(basename "$hook")"
+      existed=false
+      [ -f "$dest" ] && existed=true
+
+      if [ ! -f "$dest" ] || [ "$FORCE_OVERWRITE" = "true" ]; then
+        cp "$hook" "$dest"
+        chmod +x "$dest"
+        if [ "$existed" = "true" ]; then
+          echo "  ↻ $(basename "$hook") (updated)"
+        else
+          echo "  + $(basename "$hook") (new)"
+        fi
+      else
+        echo "  - $(basename "$hook") (exists, skipped)"
+      fi
+    done
   else
     info "Skipped hooks installation"
   fi
 
   # Copy scripts
-  cp -r "$SCRIPT_DIR/scripts/"* "$CLAUDE_DIR/scripts/" 2>/dev/null || true
-  chmod +x "$CLAUDE_DIR/scripts/"*.sh
-  success "Installed scripts (2 files)"
+  echo ""
+  echo "Installing scripts:"
+  for script in "$SCRIPT_DIR/scripts/"*.sh; do
+    dest="$CLAUDE_DIR/scripts/$(basename "$script")"
+    existed=false
+    [ -f "$dest" ] && existed=true
+
+    if [ ! -f "$dest" ] || [ "$FORCE_OVERWRITE" = "true" ]; then
+      cp "$script" "$dest"
+      chmod +x "$dest"
+      if [ "$existed" = "true" ]; then
+        echo "  ↻ $(basename "$script") (updated)"
+      else
+        echo "  + $(basename "$script") (new)"
+      fi
+    else
+      echo "  - $(basename "$script") (exists, skipped)"
+    fi
+  done
 
   # Copy docs
-  cp -r "$SCRIPT_DIR/docs/"* "$CLAUDE_DIR/docs/" 2>/dev/null || true
-  success "Installed documentation"
+  echo ""
+  echo "Installing documentation:"
+  for doc in "$SCRIPT_DIR/docs/"*.md; do
+    copy_if_new "$doc" "$CLAUDE_DIR/docs/$(basename "$doc")"
+  done
+
+  echo ""
+  if [ "$FORCE_OVERWRITE" = "true" ]; then
+    success "Force installation complete - all files updated"
+  else
+    success "Installation complete - new files added, existing files preserved"
+  fi
 }
 
 # Configure hooks in settings.json
@@ -201,12 +270,14 @@ Usage: $0 [OPTIONS]
 Options:
   --auto            Non-interactive installation with defaults
   --skip-hooks      Install without hooks (manual configuration needed)
+  --force           Overwrite ALL existing files (creates backup first)
   --claude-dir DIR  Custom Claude Code directory (default: ~/.claude)
   --help            Show this help message
 
 Examples:
-  $0                    # Interactive installation
-  $0 --auto             # Automatic installation
+  $0                    # Interactive - add new files only
+  $0 --auto             # Automatic - add new files only
+  $0 --force            # Overwrite everything with backup
   $0 --skip-hooks       # Install without hooks
 EOF
 }
@@ -214,6 +285,7 @@ EOF
 # Parse arguments
 SKIP_HOOKS=false
 AUTO_MODE=false
+FORCE_OVERWRITE=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -223,6 +295,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-hooks)
       SKIP_HOOKS=true
+      shift
+      ;;
+    --force)
+      FORCE_OVERWRITE=true
       shift
       ;;
     --claude-dir)
@@ -248,6 +324,12 @@ main() {
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   echo ""
   info "Installation directory: $CLAUDE_DIR"
+
+  if [ "$FORCE_OVERWRITE" = "true" ]; then
+    warn "FORCE MODE: Will overwrite all existing files (backup created)"
+  else
+    info "Default mode: Only new files added, existing files preserved"
+  fi
   echo ""
 
   if [ "$AUTO_MODE" != "true" ]; then

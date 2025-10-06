@@ -43,10 +43,31 @@ cd claude-spec-framework
 ### Installation Options
 
 ```bash
-./install.sh                # Interactive (recommended)
-./install.sh --auto         # Non-interactive with defaults
+./install.sh                # Interactive - add new files only
+./install.sh --auto         # Non-interactive - add new files only
+./install.sh --force        # Overwrite all files (creates backup)
 ./install.sh --skip-hooks   # Install without hooks (manual config)
 ```
+
+**Default Behavior**: Only new files are added. Existing files are preserved.
+**Force Mode** (`--force`): Overwrites ALL files and creates a timestamped backup in `~/.claude/.backups/`
+
+### Upgrading
+
+To upgrade your installation with the latest changes:
+
+```bash
+cd claude-spec-framework
+git pull
+./install.sh --auto         # Only adds new files (recommended)
+# OR
+./install.sh --force        # Overwrites everything (use if you haven't customized)
+```
+
+**Installation Status Indicators**:
+- `+` = New file added
+- `↻` = Existing file updated (force mode only)
+- `-` = Existing file skipped (default mode)
 
 ## 📚 Quick Start
 
