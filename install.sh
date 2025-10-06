@@ -276,7 +276,7 @@ main() {
   echo ""
   echo "  3. Check hooks: $CLAUDE_DIR/hooks/README.md"
   echo ""
-  info "Need help? Visit: https://github.com/yourusername/claude-spec-framework"
+  info "Need help? Visit: https://github.com/ryan-norman-cmm/claude-spec-framework"
   echo ""
 }
 

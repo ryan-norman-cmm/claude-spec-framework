@@ -4,7 +4,7 @@
 
 Transform your development workflow with a structured approach to building features: from requirements → design → implementation, with automated test tracking and quality gates.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/yourusername/claude-spec-framework)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/ryan-norman-cmm/claude-spec-framework)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## ✨ Features
@@ -29,13 +29,13 @@ Transform your development workflow with a structured approach to building featu
 ### One-Command Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/claude-spec-framework/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ryan-norman-cmm/claude-spec-framework/main/install.sh | bash
 ```
 
 ### Manual Installation
 
 ```bash
-git clone https://github.com/yourusername/claude-spec-framework.git
+git clone https://github.com/ryan-norman-cmm/claude-spec-framework.git
 cd claude-spec-framework
 ./install.sh
 ```
@@ -224,8 +224,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🔗 Links
 
 - [Documentation](docs/)
-- [Issues](https://github.com/yourusername/claude-spec-framework/issues)
-- [Discussions](https://github.com/yourusername/claude-spec-framework/discussions)
+- [Issues](https://github.com/ryan-norman-cmm/claude-spec-framework/issues)
+- [Discussions](https://github.com/ryan-norman-cmm/claude-spec-framework/discussions)
 - [Claude Code Docs](https://docs.claude.com/claude-code)
 
 ---
