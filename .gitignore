@@ -1,0 +1,42 @@
+# Spec framework gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+
+# Logs
+*.log
+hook-debug.log
+
+# Temp files
+*.tmp
+.spec-state-*
+
+# Node modules (if testing)
+node_modules/
+
+# Test artifacts
+coverage/
+.nyc_output/
+
+# Local config overrides
+.spec-framework.local.json
+spec-framework.config.local.json
+
+# Build artifacts
+dist/
+build/
+
+# Cache
+.cache/
