@@ -69,7 +69,7 @@ install_files() {
 
   # Copy agents
   cp -r "$SCRIPT_DIR/agents/"* "$CLAUDE_DIR/agents/" 2>/dev/null || true
-  success "Installed agents (4 files)"
+  success "Installed agents (7 files)"
 
   # Copy commands
   cp -r "$SCRIPT_DIR/commands/spec/"* "$CLAUDE_DIR/commands/spec/" 2>/dev/null || true
@@ -171,6 +171,8 @@ verify_installation() {
   [ -f "$CLAUDE_DIR/agents/spec-requirements-generator.md" ] || { error "Missing: spec-requirements-generator.md"; ((errors++)); }
   [ -f "$CLAUDE_DIR/agents/spec-design-generator.md" ] || { error "Missing: spec-design-generator.md"; ((errors++)); }
   [ -f "$CLAUDE_DIR/agents/spec-task-generator.md" ] || { error "Missing: spec-task-generator.md"; ((errors++)); }
+  [ -f "$CLAUDE_DIR/agents/requirements-importer.md" ] || { error "Missing: requirements-importer.md"; ((errors++)); }
+  [ -f "$CLAUDE_DIR/agents/e2e-test-generator.md" ] || { error "Missing: e2e-test-generator.md"; ((errors++)); }
 
   # Check commands
   [ -f "$CLAUDE_DIR/commands/spec/init.md" ] || { error "Missing: spec/init.md"; ((errors++)); }

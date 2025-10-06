@@ -9,12 +9,18 @@ Transform your development workflow with a structured approach to building featu
 
 ## ✨ Features
 
+### Core Workflow
 - 🎯 **EARS Requirements** - Generate precise requirements using EARS format (Event-Action-Response-State)
 - 🏗️ **Technical Design** - Automatic design generation from requirements with architecture analysis
 - ✅ **TDD Task Breakdown** - Sequential tasks with built-in Red-Green-Refactor checkboxes
 - ♻️ **Automated TDD Tracking** - Real-time test status updates via hooks (zero tokens!)
 - 🔍 **Spec Validation** - Comprehensive quality checks for requirements, design, and tasks
 - 📊 **Requirements Mapping** - Validate all EARS criteria are tested
+
+### Enhanced Capabilities
+- 📥 **Requirements Import** - Import from JIRA, GitHub Issues, and external docs
+- 🧪 **E2E Test Generation** - Generate Cucumber/Playwright tests with Docker environments
+- ✔️ **Task Completion Evaluation** - Comprehensive validation of requirements, tests, and docs
 - 🚦 **Phase Gates** - Prevent mistakes by enforcing workflow order
 - 📈 **Progress Tracking** - Visual status indicators and metadata sync
 

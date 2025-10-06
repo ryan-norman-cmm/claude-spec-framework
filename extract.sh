@@ -29,6 +29,9 @@ copy_file "${SOURCE_DIR}/agents/spec-requirements-generator.md" "agents/spec-req
 copy_file "${SOURCE_DIR}/agents/spec-design-generator.md" "agents/spec-design-generator.md"
 copy_file "${SOURCE_DIR}/agents/spec-task-generator.md" "agents/spec-task-generator.md"
 copy_file "${SOURCE_DIR}/agents/spec-comprehensive-validator.md" "agents/spec-comprehensive-validator.md"
+copy_file "${SOURCE_DIR}/agents/requirements-importer.md" "agents/requirements-importer.md"
+copy_file "${SOURCE_DIR}/agents/task-completion-evaluator.md" "agents/task-completion-evaluator.md"
+copy_file "${SOURCE_DIR}/agents/e2e-test-generator.md" "agents/e2e-test-generator.md"
 echo ""
 
 # 2. Copy commands
@@ -70,7 +73,7 @@ echo ""
 echo "✨ Extraction complete!"
 echo ""
 echo "Files extracted to:"
-echo "  - agents/        (4 files)"
+echo "  - agents/        (7 files)"
 echo "  - commands/spec/ (10 files)"
 echo "  - hooks/         (7 files)"
 echo "  - scripts/       (2 files)"
