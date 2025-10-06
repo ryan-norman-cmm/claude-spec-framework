@@ -10,6 +10,7 @@ spec-requirements-generator → spec-design-generator → spec-task-generator
 
 ### Full Workflow
 - `/spec:init <feature>` - Initialize spec and generate all phases sequentially
+- `/spec:complete <feature>` - **NEW!** Complete spec with validation, tests, and commit
 
 ### Individual Phases
 - `/spec:requirements <feature>` - Generate requirements.md
@@ -42,6 +43,9 @@ spec-requirements-generator → spec-design-generator → spec-task-generator
 # 5. Update requirements, then refine
 # Edit specs/user-authentication/requirements.md
 /spec:refine user-authentication
+
+# 6. Complete spec (validation ≥90, tests pass, create commit)
+/spec:complete user-authentication
 ```
 
 ## Scoping Best Practice

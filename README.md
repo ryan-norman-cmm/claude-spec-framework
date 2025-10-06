@@ -114,17 +114,22 @@ Updates tasks based on actual code changes (Code → Spec sync).
 # 4. Implement (hooks auto-track progress)
 # Write tests → Implement → Tests pass → Task completed ✅
 
-# 5. Validate before PR
+# 5. Validate before completion
 /spec:validate password-reset
 
-# 6. Check status
-/spec:status password-reset
+# 6. Complete spec (validation ≥90, tests pass, create commit)
+/spec:complete password-reset
+# ✅ Creates completion commit with summary
+
+# 7. Create PR
+gh pr create
 ```
 
 ## 🛠️ Commands Reference
 
 ### Full Workflow
 - `/spec:init <feature>` - Initialize spec and generate all phases
+- `/spec:complete <feature>` - Complete spec with validation, tests, and commit
 
 ### Individual Phases
 - `/spec:requirements <feature>` - Generate requirements.md only
