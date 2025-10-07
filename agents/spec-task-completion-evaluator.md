@@ -1,5 +1,5 @@
 ---
-name: task-completion-evaluator
+name: spec-task-completion-evaluator
 description: Comprehensive task completion evaluation - validates requirements met, tests passing, and documentation complete. Used by hooks for automatic task validation.
 tools: Bash, Read, Grep, Glob
 ---

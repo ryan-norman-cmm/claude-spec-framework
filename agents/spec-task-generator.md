@@ -87,7 +87,7 @@ Use template: ${CLAUDE_DIR:-$HOME/.claude}/specs/templates/tasks.md
 1. Database setup (migration + entity) + unit tests
 2. API endpoints (controller + service) + unit tests
 3. Basic UI components (form + display) + component tests
-4. **E2E tests with real services** (Run e2e-test-generator agent)
+4. **E2E tests with real services** (Run spec-e2e-test-generator agent)
    - Agent generates: Cucumber features, Playwright steps, Page Objects, docker-compose.e2e.yml
    - Developer implements tests following generated structure
    - Real database, APIs (minimal mocking)
@@ -97,7 +97,7 @@ Use template: ${CLAUDE_DIR:-$HOME/.claude}/specs/templates/tasks.md
 - Every task starts with "Write tests"
 - Test file listed before implementation file
 - Red-Green-Refactor cycle explicit
-- **E2E task**: Reference e2e-test-generator agent for structure generation
+- **E2E task**: Reference spec-e2e-test-generator agent for structure generation
   - Developer will run agent to generate test scaffolding
   - Then implement actual test scenarios
   - Files generated: .feature, .steps.ts, .page.ts, docker-compose.e2e.yml
@@ -128,7 +128,7 @@ Task 1: Core Data Layer + Unit Tests (4h)
 Task 2: API Layer + Unit Tests (4h)
 Task 3: UI Components + Component Tests (6h)
 Task 4: E2E Tests with Real Services (4-6h)
-  - Run e2e-test-generator agent to scaffold test structure
+  - Run spec-e2e-test-generator agent to scaffold test structure
   - Implement Cucumber scenarios based on acceptance criteria
   - Create step definitions with Playwright
   - Build Page Objects for UI interactions
@@ -144,4 +144,4 @@ Task 5: Polish & Deployment (2h)
 - Clear file paths
 - Specific acceptance criteria
 - Time-boxed estimates
-- **E2E generation on-demand**: Reference e2e-test-generator agent in Task 4 for scaffolding
+- **E2E generation on-demand**: Reference spec-e2e-test-generator agent in Task 4 for scaffolding

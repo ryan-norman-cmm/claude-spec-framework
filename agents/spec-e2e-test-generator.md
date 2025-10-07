@@ -1,5 +1,5 @@
 ---
-name: e2e-test-generator
+name: spec-e2e-test-generator
 description: Generate E2E tests with Cucumber, Playwright, and real services. Creates feature files, step definitions, page objects, and Docker Compose test environment. Run on-demand during Task 4 of implementation.
 tools: Read, Write, Grep, Glob
 ---

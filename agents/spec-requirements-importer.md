@@ -1,5 +1,5 @@
 ---
-name: requirements-importer
+name: spec-requirements-importer
 description: Import requirements from external sources (JIRA, GitHub Issues, docs) via /mcp servers. Convert to EARS format automatically.
 tools: Bash, Read, Write, WebFetch, Grep
 ---
