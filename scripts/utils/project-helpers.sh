@@ -1,4 +1,5 @@
 #!/bin/bash
+CLAUDE_DIR="${CLAUDE_DIR:-$HOME/.claude}"
 
 # Project-scoped helper functions for spec workflow
 # Enables isolation of spec state across different projects on same machine
@@ -34,7 +35,7 @@ get_project_name() {
 get_project_state_file() {
     local hash=$(get_project_hash)
     local name=$(get_project_name)
-    echo "$HOME/.claude/memory/spec-sessions/${hash}-${name}.json"
+    echo "${CLAUDE_DIR}/memory/spec-sessions/${hash}-${name}.json"
 }
 
 # Get project root directory
@@ -83,7 +84,7 @@ update_global_index() {
     local hash=$(get_project_hash)
     local name=$(get_project_name)
     local root=$(get_project_root)
-    local global_file="$HOME/.claude/memory/spec-sessions/global-state.json"
+    local global_file="${CLAUDE_DIR}/memory/spec-sessions/global-state.json"
 
     # Initialize global index if not exists
     if [ ! -f "$global_file" ]; then
@@ -113,7 +114,7 @@ update_global_index() {
 
 # Get all projects from global index
 list_all_projects() {
-    local global_file="$HOME/.claude/memory/spec-sessions/global-state.json"
+    local global_file="${CLAUDE_DIR}/memory/spec-sessions/global-state.json"
 
     if [ -f "$global_file" ]; then
         jq -r '.projects | to_entries | .[] | "\(.key) \(.value.name) \(.value.active_specs_count) \(.value.last_activity)"' "$global_file"
@@ -123,7 +124,7 @@ list_all_projects() {
 # Find spec across all projects
 search_spec_global() {
     local spec_name="$1"
-    local memory_dir="$HOME/.claude/memory/spec-sessions"
+    local memory_dir="${CLAUDE_DIR}/memory/spec-sessions"
 
     for state_file in "$memory_dir"/*-*.json; do
         if [ -f "$state_file" ]; then
@@ -142,7 +143,7 @@ search_spec_global() {
 
 # Migrate old global state to project-scoped state (one-time migration)
 migrate_legacy_state() {
-    local old_state="$HOME/.claude/memory/spec-sessions/state.json"
+    local old_state="${CLAUDE_DIR}/memory/spec-sessions/state.json"
 
     if [ -f "$old_state" ]; then
         echo "🔄 Migrating legacy state to project-scoped format..."

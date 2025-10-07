@@ -29,7 +29,7 @@ Transform your development workflow with a structured approach to building featu
 ### One-Command Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ryan-norman-cmm/claude-spec-framework/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ryan-norman-cmm/claude-spec-framework/main/scripts/install/install.sh | bash
 ```
 
 ### Manual Installation
@@ -37,16 +37,16 @@ curl -fsSL https://raw.githubusercontent.com/ryan-norman-cmm/claude-spec-framewo
 ```bash
 git clone https://github.com/ryan-norman-cmm/claude-spec-framework.git
 cd claude-spec-framework
-./install.sh
+./scripts/install/install.sh
 ```
 
 ### Installation Options
 
 ```bash
-./install.sh                # Interactive - add new files only
-./install.sh --auto         # Non-interactive - add new files only
-./install.sh --force        # Overwrite all files (creates backup)
-./install.sh --skip-hooks   # Install without hooks (manual config)
+./scripts/install/install.sh                # Interactive - add new files only
+./scripts/install/install.sh --auto         # Non-interactive - add new files only
+./scripts/install/install.sh --force        # Overwrite all files (creates backup)
+./scripts/install/install.sh --skip-hooks   # Install without hooks (manual config)
 ```
 
 **Default Behavior**: Only new files are added. Existing files are preserved.
@@ -59,9 +59,9 @@ To upgrade your installation with the latest changes:
 ```bash
 cd claude-spec-framework
 git pull
-./install.sh --auto         # Only adds new files (recommended)
+./scripts/install/install.sh --auto         # Only adds new files (recommended)
 # OR
-./install.sh --force        # Overwrites everything (use if you haven't customized)
+./scripts/install/install.sh --force        # Overwrites everything (use if you haven't customized)
 ```
 
 **Installation Status Indicators**:

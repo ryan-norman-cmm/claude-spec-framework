@@ -22,7 +22,7 @@ mkdir -p "$TEST_DIR"
 echo -e "${BLUE}ℹ${NC} Running installation to test directory..."
 echo ""
 
-CLAUDE_DIR="$TEST_DIR" ./install.sh --auto
+CLAUDE_DIR="$TEST_DIR" ./scripts/install/install.sh --auto
 
 echo ""
 echo "================================================"

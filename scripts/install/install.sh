@@ -91,14 +91,14 @@ install_files() {
 
   # Copy agents
   echo "Installing agents:"
-  for agent in "$SCRIPT_DIR/agents/"*.md; do
+  for agent in "$SCRIPT_DIR/../../agents/"*.md; do
     copy_if_new "$agent" "$CLAUDE_DIR/agents/$(basename "$agent")"
   done
 
   # Copy commands
   echo ""
   echo "Installing commands:"
-  for cmd in "$SCRIPT_DIR/commands/spec/"*.md; do
+  for cmd in "$SCRIPT_DIR/../../commands/spec/"*.md; do
     copy_if_new "$cmd" "$CLAUDE_DIR/commands/spec/$(basename "$cmd")"
   done
 
@@ -106,7 +106,7 @@ install_files() {
   if [ "$SKIP_HOOKS" != "true" ]; then
     echo ""
     echo "Installing hooks:"
-    for hook in "$SCRIPT_DIR/hooks/"*.sh; do
+    for hook in "$SCRIPT_DIR/../../hooks/"*.sh; do
       dest="$CLAUDE_DIR/hooks/$(basename "$hook")"
       existed=false
       [ -f "$dest" ] && existed=true
@@ -130,7 +130,7 @@ install_files() {
   # Copy scripts
   echo ""
   echo "Installing scripts:"
-  for script in "$SCRIPT_DIR/scripts/"*.sh; do
+  for script in "$SCRIPT_DIR/../utils/"*.sh; do
     dest="$CLAUDE_DIR/scripts/$(basename "$script")"
     existed=false
     [ -f "$dest" ] && existed=true
@@ -151,7 +151,7 @@ install_files() {
   # Copy docs
   echo ""
   echo "Installing documentation:"
-  for doc in "$SCRIPT_DIR/docs/"*.md; do
+  for doc in "$SCRIPT_DIR/../../docs/"*.md; do
     copy_if_new "$doc" "$CLAUDE_DIR/docs/$(basename "$doc")"
   done
 

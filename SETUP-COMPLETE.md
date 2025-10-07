@@ -24,9 +24,9 @@ Your spec framework has been successfully extracted into a standalone repository
 - ✅ **Working Example** - Simple API endpoint spec
 
 ### Installation & Setup
-- ✅ **install.sh** - Interactive installer with options
-- ✅ **extract.sh** - Original extraction script
-- ✅ **generalize-paths.sh** - Path generalization script
+- ✅ **scripts/install/install.sh** - Interactive installer with options
+- ✅ **scripts/dev/extract.sh** - Original extraction script
+- ✅ **scripts/dev/generalize-paths.sh** - Path generalization script
 
 ### Project Files
 - ✅ **.gitignore** - Proper ignores for spec framework
@@ -83,10 +83,10 @@ Test on a clean environment:
 cd /tmp
 git clone /Users/rnorman/.claude/claude-spec-framework
 cd claude-spec-framework
-./install.sh --auto
+./scripts/install/install.sh --auto
 
 # Option 2: After pushing to GitHub
-curl -fsSL https://raw.githubusercontent.com/yourusername/claude-spec-framework/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/yourusername/claude-spec-framework/mai./scripts/install/install.sh | bash
 ```
 
 ### 4. Update README
@@ -108,7 +108,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installation
-        run: ./install.sh --auto
+        run: ./scripts/install/install.sh --auto
 ```
 
 ### 6. Share with Community
@@ -128,7 +128,7 @@ jobs:
 ./generalize-paths.sh
 
 # Test installation locally
-./install.sh --claude-dir /tmp/test-claude
+./scripts/install/install.sh --claude-dir /tmp/test-claude
 ```
 
 ### Git Operations
@@ -153,7 +153,7 @@ Before publishing, customize these files:
    - Update badge URLs
    - Add your links
 
-2. **install.sh**
+2. **scripts/install/install.sh**
    - Update help URL at bottom
    - Confirm all paths are correct
 

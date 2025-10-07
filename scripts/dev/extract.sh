@@ -54,8 +54,8 @@ echo ""
 
 # 4. Copy scripts
 echo "📜 Copying scripts..."
-copy_file "${SOURCE_DIR}/scripts/spec-validator.sh" "scripts/spec-validator.sh"
-copy_file "${SOURCE_DIR}/scripts/project-helpers.sh" "scripts/project-helpers.sh"
+copy_file "${SOURCE_DIR}/scripts/spec-validator.sh" "scripts/utils/spec-validator.sh"
+copy_file "${SOURCE_DIR}/scripts/project-helpers.sh" "scripts/utils/project-helpers.sh"
 echo ""
 
 # 5. Copy docs

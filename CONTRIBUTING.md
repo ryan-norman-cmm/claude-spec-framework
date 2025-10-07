@@ -49,13 +49,13 @@ git clone https://github.com/yourusername/claude-spec-framework.git
 cd claude-spec-framework
 
 # Test installation locally
-./install.sh --claude-dir /tmp/test-claude
+./scripts/install/install.sh --claude-dir /tmp/test-claude
 
 # Make changes
 # Test changes
 
 # Run tests (if added)
-./tests/test-install.sh
+./scripts/dev/test-install.sh
 ```
 
 ## Coding Standards
@@ -88,7 +88,7 @@ cd claude-spec-framework
 
 ```bash
 # Test installation
-./install.sh --auto
+./scripts/install/install.sh --auto
 
 # Test slash commands
 claude

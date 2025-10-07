@@ -1,4 +1,5 @@
 #!/bin/bash
+CLAUDE_DIR="${CLAUDE_DIR:-$HOME/.claude}"
 
 # Spec validation system
 # Validates implementation against defined specifications
@@ -260,7 +261,7 @@ main() {
         exit 1
     fi
 
-    local spec_dir="$HOME/.claude/specs/active/$feature_name"
+    local spec_dir="${CLAUDE_DIR}/specs/active/$feature_name"
 
     if [ ! -d "$spec_dir" ]; then
         print_color $RED "Error: Spec for '$feature_name' not found"

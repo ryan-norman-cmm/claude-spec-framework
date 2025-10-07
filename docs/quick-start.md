@@ -11,7 +11,7 @@ Get up and running with Claude Spec Framework in 5 minutes.
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ryan-norman-cmm/claude-spec-framework/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ryan-norman-cmm/claude-spec-framework/main/scripts/install/install.sh | bash
 ```
 
 Or manually:
@@ -19,7 +19,7 @@ Or manually:
 ```bash
 git clone https://github.com/ryan-norman-cmm/claude-spec-framework.git
 cd claude-spec-framework
-./install.sh
+./scripts/install/install.sh
 ```
 
 ## Your First Spec
