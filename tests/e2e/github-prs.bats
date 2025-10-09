@@ -367,6 +367,90 @@ This PR implements the spec for **${feature_name}**.
 }
 
 # ========================================
+# Edge Case Tests (High Priority from Review)
+# ========================================
+
+@test "handles PR closed externally before completion" {
+  # Initialize spec and create PR
+  run_spec_init "${TEST_FEATURE}"
+  echo "test" > test.txt
+  git add test.txt
+  git commit -m "test commit"
+  run_spec_create_pr "${TEST_FEATURE}"
+
+  # Simulate PR being closed externally by setting mock status
+  export GH_MOCK_PR_STATUS="not_found"
+
+  # Try to check review decision - should handle gracefully
+  local pr_number
+  pr_number="$(jq -r '.prNumber' "./specs/${TEST_FEATURE}/.spec-meta.json")"
+
+  run get_pr_review_decision "${pr_number}"
+
+  # Should fail gracefully, not crash
+  [ "$status" -ne 0 ]
+
+  # Reset mock
+  unset GH_MOCK_PR_STATUS
+}
+
+@test "handles network failures during PR operations" {
+  # Initialize spec and create PR
+  run_spec_init "${TEST_FEATURE}"
+  echo "test" > test.txt
+  git add test.txt
+  git commit -m "test commit"
+  run_spec_create_pr "${TEST_FEATURE}"
+
+  # Simulate network error
+  export GH_MOCK_NETWORK_ERROR="true"
+
+  local pr_number
+  pr_number="$(jq -r '.prNumber' "./specs/${TEST_FEATURE}/.spec-meta.json")"
+
+  # Try to get PR status - should handle network error gracefully
+  run get_pr_status "${pr_number}"
+
+  # Should fail with network error
+  [ "$status" -ne 0 ]
+  [[ "$output" =~ "network" ]] || [[ "$output" =~ "Network" ]]
+
+  # Reset mock
+  unset GH_MOCK_NETWORK_ERROR
+}
+
+@test "handles merge conflicts gracefully" {
+  # Initialize spec and create PR
+  run_spec_init "${TEST_FEATURE}"
+  echo "test" > test.txt
+  git add test.txt
+  git commit -m "test commit"
+  run_spec_create_pr "${TEST_FEATURE}"
+
+  # Simulate merge failure due to conflicts
+  export GH_MOCK_MERGE_SUCCESS="false"
+  export GH_MOCK_MERGE_ERROR="PR has merge conflicts"
+
+  local pr_number
+  pr_number="$(jq -r '.prNumber' "./specs/${TEST_FEATURE}/.spec-meta.json")"
+
+  # First set PR to approved
+  export GH_MOCK_REVIEW_DECISION="APPROVED"
+
+  # Try to merge - should fail with conflict error
+  run merge_pr "${pr_number}"
+
+  # Should fail
+  [ "$status" -ne 0 ]
+  [[ "$output" =~ "conflicts" ]]
+
+  # Reset mocks
+  unset GH_MOCK_MERGE_SUCCESS
+  unset GH_MOCK_MERGE_ERROR
+  unset GH_MOCK_REVIEW_DECISION
+}
+
+# ========================================
 # Success Metrics
 # ========================================
 

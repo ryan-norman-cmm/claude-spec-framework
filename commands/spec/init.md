@@ -6,17 +6,23 @@ argument-hint: <feature-name>
 
 Initialize spec for feature: **$1**
 
-**Git Branch Setup (NEW)**:
+**Git Branch Setup**:
 IMPORTANT: Before creating spec files, set up git branch:
+
 1. Source git utilities: `source ./scripts/utils/git-utils.sh`
 2. Validate preconditions:
-   - Check if on main branch using `is_on_main_branch` - if not, stop and report error
-   - Check if working directory is clean using `check_clean_working_directory` - if not, stop and report error
-3. Create and checkout branch: `create_spec_branch "$1"` - this creates and checks out to `spec/$1`
-4. If branch creation fails, stop and report error
+   - Check if on main branch using `is_on_main_branch`
+   - If not on main: Stop and report "Error: Must be on main branch to initialize spec. Current branch: <branch>. Please checkout main and try again."
+   - Check if working directory is clean using `check_clean_working_directory`
+   - If dirty: Stop and report "Error: Working directory must be clean. Please commit or stash changes before initializing spec."
+3. Create and checkout branch: `create_spec_branch "$1"`
+   - This creates and checks out to `spec/$1`
+   - If branch creation fails: Stop and report error with git output
+4. Verify branch created successfully
 
-**Setup Steps**:
-1. Check if ./specs/$1 already exists using Read tool - if it exists, stop and report error
+**Spec Directory Setup**:
+1. Check if ./specs/$1 already exists using Read tool
+   - If exists: Stop and report "Error: Spec already exists at ./specs/$1. Use /spec:refine to update existing spec."
 2. Create directory: `mkdir -p ./specs/$1`
 3. Use Write tool to create ./specs/$1/.spec-meta.json with:
    ```json
@@ -29,6 +35,7 @@ IMPORTANT: Before creating spec files, set up git branch:
    }
    ```
 
+**Spec Generation Orchestration**:
 Orchestrate sequential spec generation for feature: $1
 
 NEXT: Ask the user for general guidance on the problem being solved and the desired approach.

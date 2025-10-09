@@ -17,7 +17,10 @@
       "Bash(chmod:*)",
       "Bash(bats:*)",
       "Read(//private/tmp/**)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(source:*)",
+      "Bash(jq:*)",
+      "Bash(gh:*)"
     ],
     "deny": [],
     "ask": []
