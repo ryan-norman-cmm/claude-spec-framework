@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git mv:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(tree:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Read(//Users/rnorman/.claude/specs/templates/**)",
+      "Bash(test:*)",
+      "Read(//Users/rnorman/.claude/**)",
+      "Bash(command:*)",
+      "Bash(/dev/null)",
+      "Bash(brew install:*)",
+      "Bash(chmod:*)",
+      "Bash(bats:*)",
+      "Read(//private/tmp/**)",
+      "Bash(git log:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
