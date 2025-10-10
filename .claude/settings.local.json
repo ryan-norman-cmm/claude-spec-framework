@@ -20,7 +20,8 @@
       "Bash(git log:*)",
       "Bash(source:*)",
       "Bash(jq:*)",
-      "Bash(gh:*)"
+      "Bash(gh:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": [],
     "ask": []

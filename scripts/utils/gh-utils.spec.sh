@@ -238,9 +238,3 @@ teardown() {
   result=$(get_pr_status "456" | jq -r '.number')
   [ "$result" = "456" ]
 }
-
-@test "handles malformed JSON gracefully" {
-  # Skip - this tests mock behavior more than real functionality
-  # Real gh CLI never returns malformed JSON
-  skip "Mock test - real gh CLI validated"
-}
