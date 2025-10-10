@@ -2,6 +2,7 @@
 name: spec-design-generator
 description: Generate technical design from approved requirements. Creates architecture, data models, API contracts. Analyzes codebase for existing patterns to follow.
 tools: Read, Write, Grep, Glob, Bash
+model: claude-opus-4-20250514
 ---
 
 ## Responsibilities

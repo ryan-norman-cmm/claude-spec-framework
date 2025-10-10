@@ -2,6 +2,7 @@
 name: spec-requirements-generator
 description: Generate EARS format requirements from natural language. Creates user stories with Given/When/Then/And acceptance criteria. Minimal, focused agent for requirements phase only.
 tools: Read, Write, Grep, Glob
+model: claude-opus-4-20250514
 ---
 
 ## Responsibilities
